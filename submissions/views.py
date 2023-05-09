@@ -1,6 +1,7 @@
 from django.utils import timezone
 from rest_framework.response import Response
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import viewsets, permissions
 from .models import Hackathon, Submission
 from .serializers import (
@@ -25,8 +26,9 @@ class HackathonViewSet(viewsets.ModelViewSet):
         serializer.save(created_by=self.request.user)
 
 class SubmissionViewSet(viewsets.ModelViewSet):
+    # queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
     def get_queryset(self):

@@ -36,11 +36,11 @@ class Hackathon(models.Model):
 # model for hackathon submissions
 class Submission(models.Model):
     hackathon = models.ForeignKey(Hackathon, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="AnonymousUser")
     name = models.CharField(max_length=200)
     summary = models.TextField()
-    submission_file = models.FileField(upload_to='submissions/', blank=True, null=True)
-    submission_image = models.ImageField(upload_to='submissions/', blank=True, null=True)
+    submission_file = models.FileField(upload_to='images/submissions/', blank=True, null=True)
+    submission_image = models.ImageField(upload_to='images/submissions/', blank=True, null=True)
     submission_link = models.URLField(blank=True, null=True)
     # submitssion_type = models.
 
