@@ -2,6 +2,7 @@ from rest_framework import serializers, viewsets, permissions, routers
 from .models import Hackathon, Submission, HackathonRegistration
 from django.contrib.auth.models import User
 
+# serializer for hackathon
 class HackathonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hackathon
@@ -23,12 +24,13 @@ class SubmissionSerializer(serializers.ModelSerializer):
         submission = Submission.objects.create(**validated_data)
         return submission
         
-
+# serializer for user submission
 class SubmissionViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Submission
         fields = '__all__'
 
+# serializer for user registrations
 class HackathonRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = HackathonRegistration

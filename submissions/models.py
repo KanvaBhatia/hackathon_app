@@ -2,9 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.core.exceptions import ValidationError
 
 
-# model for hackathon submissions
+# model for hackathon
 class Hackathon(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -29,9 +30,6 @@ class Hackathon(models.Model):
         if self.submission_type not in submission_types:
             raise ValidationError("Invalid submission type")
     
-    # def __str__(self):
-    #     return f"{self.id}. {self.title} - Created by - {self.created_by}"
-
 
 # model for hackathon submissions
 class Submission(models.Model):
@@ -42,9 +40,8 @@ class Submission(models.Model):
     submission_file = models.FileField(upload_to='images/submissions/', blank=True, null=True)
     submission_image = models.ImageField(upload_to='images/submissions/', blank=True, null=True)
     submission_link = models.URLField(blank=True, null=True)
-    # submitssion_type = models.
 
-
+# model for Hackathon registration
 class HackathonRegistration(models.Model):
     hackathon = models.ForeignKey('Hackathon', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

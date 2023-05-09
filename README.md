@@ -53,7 +53,7 @@ python manage.py runserver
 Go to http://localhost:8000/api/ to see if the API is up and running.
 
 
-##Create superuser
+## Create superuser
 
 Create a superuser to add more users for testing.
 

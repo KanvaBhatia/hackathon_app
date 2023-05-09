@@ -1,7 +1,6 @@
 from django.utils import timezone
 from rest_framework.response import Response
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import viewsets, permissions
 from .models import Hackathon, Submission
 from .serializers import (
@@ -10,7 +9,7 @@ from .serializers import (
 )
 from .permissions import IsAuthorizedToAddHackathons
 
-
+# view for creating hackathons
 class HackathonViewSet(viewsets.ModelViewSet):
     queryset = Hackathon.objects.all()
     serializer_class = HackathonSerializer
@@ -25,8 +24,8 @@ class HackathonViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
+# view for submitting
 class SubmissionViewSet(viewsets.ModelViewSet):
-    # queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
     permission_classes = [permissions.IsAuthenticated]
     def perform_create(self, serializer):
@@ -34,11 +33,13 @@ class SubmissionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Submission.objects.filter(user=self.request.user)
 
+# view for listing all hackathons
 class PublicHackathonViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Hackathon.objects.all()
     serializer_class = HackathonSerializer
 
 
+# view for registering to a hackathon
 class HackathonRegistrationViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = HackathonRegistrationSerializer
@@ -49,6 +50,7 @@ class HackathonRegistrationViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+# view for viewing enrolled hackathons
 class EnrolledHackathonViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -58,6 +60,7 @@ class EnrolledHackathonViewSet(viewsets.ViewSet):
         serializer = HackathonSerializer(hackathons, many=True)
         return Response(serializer.data)
 
+# view for viewing user's submissions
 class UserSubmissionViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = SubmissionViewSerializer
     permission_classes = [permissions.IsAuthenticated]
