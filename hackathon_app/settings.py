@@ -21,28 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-5hgae%=quqfig)ac$y14-b46qs-y$&zgkq85032@!4)!2!7cg$"
 import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
 ALLOWED_HOSTS = ['*']
-# CORS_ALLOWED_ORIGINS = [r"https://hackathonapp-production.up.railway.app$"]
-# CORS_ALLOW_ALL_ORIGINS = True
+
 CSRF_TRUSTED_ORIGINS = ['https://hackathonapp-production.up.railway.app','https://*.127.0.0.1']
-# CSFR_TRUSTED_ORIGINS = [r'https://hackathonapp-production.up.railway.app$']
-# DD_CSRF_TRUSTED_ORIGINS="https://hackathonapp-production.up.railway.app"
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 # The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -93,13 +85,6 @@ WSGI_APPLICATION = "hackathon_app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': Path(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -144,8 +129,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
