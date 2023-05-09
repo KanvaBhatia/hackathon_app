@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
 ALLOWED_HOSTS = ['*']
-# CORS_ALLOWED_ORIGINS = ["https://hackathonapp-production.up.railway.app/"]
+CORS_ALLOWED_ORIGINS = [r"https://hackathonapp-production.up.railway.app/$"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
@@ -53,9 +53,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'submissions',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
