@@ -112,3 +112,14 @@ http://127.0.0.1:8000/api/auth/login
 ### 2. Logout - 
 
 http://127.0.0.1:8000/api/auth/logout
+
+
+# Deployed on Railway - 
+https://hackathonapp-production.up.railway.app/api
+
+### To create more users, login to  -
+https://hackathonapp-production.up.railway.app/admin
+Username - admin
+Password AIPlanet
+
+
