@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
 ALLOWED_HOSTS = ['*']
-CORS_ALLOWED_ORIGINS = [r"https://hackathonapp-production.up.railway.app/$"]
+CORS_ALLOWED_ORIGINS = [r"https://hackathonapp-production.up.railway.app$"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
