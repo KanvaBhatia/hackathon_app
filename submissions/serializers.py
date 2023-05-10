@@ -14,6 +14,16 @@ class SubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Submission
         fields = ['id', 'name', 'summary', 'submission_file', 'submission_image', 'submission_link', 'hackathon']
+
+    # modifying init so that user can make submissions only in the enrolled hackathons
+    def __init__(self, *args, **kwargs):
+        user = kwargs['context']['request'].user
+        super().__init__(*args, **kwargs)
+        self.fields['hackathon'].queryset = Hackathon.objects.filter(
+            pk__in = HackathonRegistration.objects.filter(
+            user = user
+        ).values_list('hackathon', flat=True))
+
     def create(self, validated_data):
         hackathon = validated_data.get('hackathon')
         naming = {"file" : 'submission_file', "image" : "submission_image", "link" : "submission_link"}

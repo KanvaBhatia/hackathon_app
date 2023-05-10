@@ -2,10 +2,11 @@ from django.utils import timezone
 from rest_framework.response import Response
 from django.db.models import Q
 from rest_framework import viewsets, permissions
-from .models import Hackathon, Submission
+from django.contrib.auth.models import User
+from .models import Hackathon, Submission, HackathonRegistration
 from .serializers import (
     HackathonSerializer, SubmissionSerializer, HackathonRegistrationSerializer, 
-    HackathonRegistration, SubmissionViewSerializer
+    SubmissionViewSerializer
 )
 from .permissions import IsAuthorizedToAddHackathons
 
@@ -68,3 +69,18 @@ class UserSubmissionViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         hackathon_id = self.kwargs.get('hackathon_id')
         return Submission.objects.filter(hackathon__id=hackathon_id, user=self.request.user)
+
+class EnrolledParticipantViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthorizedToAddHackathons]
+    def list(self, request):
+        enrolled_users = HackathonRegistration.objects.values_list('user', flat=True).distinct()
+        users = User.objects.filter(id__in=enrolled_users)
+        return Response(users.values('id', 'username', 'email'))
+
+# view for viewing users who are not enrolled even in a single hackathon
+class NonEnrolledParticipantViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthorizedToAddHackathons]
+    def list(self, request):
+        enrolled_users = HackathonRegistration.objects.values_list('user', flat=True).distinct()
+        users = User.objects.exclude(id__in=enrolled_users)
+        return Response(users.values('id', 'username', 'email'))

@@ -102,6 +102,15 @@ http://127.0.0.1:8000/api/hackathons/{hackathon_id})/user-submissions
 
 Here, hackathon_id can be 1, 2, 3, etc. 
 
+### 7. View users who are not enrolled to even a single hackathon -
+
+http://127.0.0.1:8000/api/non-enrolled-participants/
+
+### 8. View users who are enrolled to at least a single hackathon -
+
+http://127.0.0.1:8000/api/enrolled-participants/
+
+
 
 ## Auth endpoints - 
 
@@ -112,3 +121,15 @@ http://127.0.0.1:8000/api/auth/login
 ### 2. Logout - 
 
 http://127.0.0.1:8000/api/auth/logout
+
+
+# Deployed on Railway - 
+https://hackathonapp-production.up.railway.app/api
+
+### To create more users, login to  -
+https://hackathonapp-production.up.railway.app/admin
+
+Username - admin
+Password AIPlanet
+
+

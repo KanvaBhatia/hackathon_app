@@ -2,7 +2,8 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import (
         HackathonViewSet, SubmissionViewSet, EnrolledHackathonViewSet,
-        UserSubmissionViewSet, PublicHackathonViewSet, HackathonRegistrationViewSet
+        UserSubmissionViewSet, PublicHackathonViewSet, HackathonRegistrationViewSet,
+        EnrolledParticipantViewSet, NonEnrolledParticipantViewSet
 )
 from dj_rest_auth.views import (
     LoginView, LogoutView, PasswordResetConfirmView, PasswordResetView,
@@ -17,6 +18,8 @@ router.register(r'register', HackathonRegistrationViewSet, basename='register-ha
 router.register(r'submit', SubmissionViewSet, basename = 'submit')
 router.register(r'enrolled-hackathons', EnrolledHackathonViewSet, basename='enrolled-hackathons')
 router.register(r'hackathons/(?P<hackathon_id>\d+)/user-submissions', UserSubmissionViewSet, basename='user-submissions')
+router.register(r'enrolled-participants', EnrolledParticipantViewSet, basename='enrolled-participants')
+router.register(r'non-enrolled-participants', NonEnrolledParticipantViewSet, basename='non-enrolled-participants')
 
 urlpatterns = [
     path('', include(router.urls)),
