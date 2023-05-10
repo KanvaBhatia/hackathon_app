@@ -1,6 +1,5 @@
-from rest_framework import serializers, viewsets, permissions, routers
+from rest_framework import serializers
 from .models import Hackathon, Submission, HackathonRegistration
-from django.contrib.auth.models import User
 
 # serializer for hackathon
 class HackathonSerializer(serializers.ModelSerializer):
